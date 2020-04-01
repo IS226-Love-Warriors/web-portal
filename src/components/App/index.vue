@@ -6,24 +6,7 @@
       app
       clipped
     >
-      <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+    <SideMenu></SideMenu>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -44,6 +27,7 @@
           justify="center"
         >
           <v-col class="shrink">
+            <router-view/>
           </v-col>
         </v-row>
       </v-container>
@@ -56,12 +40,16 @@
 </template>
 
 <script>
+import SideMenu from './SideMenu'
   export default {
+    name: 'app',
+    components: { SideMenu },
     props: {
       source: String,
     },
     data: () => ({
       drawer: null,
+      return: {}
     }),
     created () {
       this.$vuetify.theme.dark = true
