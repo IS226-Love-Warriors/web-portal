@@ -87,7 +87,7 @@ export default {
       }
       this.isLoading = true
       axios
-        .post('api/user/login.php', params)
+        .post('user/login.php', params)
         .then(res => {
           this.isLoading = false
           if (res.data) {
