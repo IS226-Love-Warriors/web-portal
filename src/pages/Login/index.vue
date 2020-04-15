@@ -16,6 +16,7 @@
                   type="text"
                   autocomplete="new-password"
                   :error="isError"
+                  @focus="clearError"
                 />
 
                 <v-text-field
@@ -68,6 +69,11 @@ export default {
       } else {
         this.isError = true
       }
+    },
+    clearError() {
+      this.isError = false
+      this.email = ''
+      this.password = ''
     }
   }
 }
