@@ -4,9 +4,15 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4" style="max-width: 500px;">
           <v-card class="elevation-12">
-            <v-toolbar dark flat>
-              <v-toolbar-title>Mini HomeSchool User Login</v-toolbar-title>
+            <v-toolbar dark flat v-if="!isError">
+              <v-toolbar-title>
+                <v-icon>mdi-view-dashboard</v-icon>
+                Mini HomeSchool User Login</v-toolbar-title
+              >
             </v-toolbar>
+            <v-alert type="error" v-show="isError">
+              {{ errorMessage }}
+            </v-alert>
             <v-card-text>
               <v-form>
                 <v-text-field
@@ -16,6 +22,9 @@
                   type="text"
                   autocomplete="new-password"
                   :error="isError"
+                  @focus="clearError"
+                  :disabled="isLoading"
+                  :loading="isLoading"
                 />
 
                 <v-text-field
@@ -27,14 +36,20 @@
                   autocomplete="new-password"
                   v-on:keyup.enter="login"
                   :error="isError"
+                  :disabled="isLoading"
+                  :loading="isLoading"
                 />
               </v-form>
             </v-card-text>
-            <v-alert type="error" v-show="isError">
-              Incorrect username or password
-            </v-alert>
-            <v-card-actions>
-              <v-btn color="primary" block @click="login">Login</v-btn>
+            <v-card-actions class="justify-center">
+              <v-btn
+                color="primary"
+                x-large
+                @click="login"
+                :disabled="isLoading || isError"
+                :loading="isLoading"
+                >Login</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -44,6 +59,7 @@
 </template>
 
 <script>
+import axios from '@/axios'
 export default {
   props: {
     source: String
@@ -52,22 +68,54 @@ export default {
     return {
       email: '',
       password: '',
-      isError: false
+      isError: false,
+      errorMessage: '',
+      isLoading: false
     }
   },
   methods: {
     login() {
       this.isError = false
-      if (this.email === 'admin' && this.password === 'qwerty') {
-        this.$store.commit('session/setUser', {
-          id: 1,
-          firstName: 'Admin1'
-        })
-        localStorage.setItem('id', this.$store.state.session.user.id)
-        this.$router.push('/')
-      } else {
-        this.isError = true
+
+      if (this.isLoading) {
+        return
       }
+
+      let params = {
+        email: this.email,
+        password: this.password
+      }
+      this.isLoading = true
+      axios
+        .post('api/user/login.php', params)
+        .then(res => {
+          this.isLoading = false
+          if (res.data) {
+            this.$store.commit('session/setUser', res.data)
+            localStorage.setItem('id', this.$store.state.session.user.id)
+            this.$router.push('/')
+          } else {
+            this.isError = true
+            this.errorMessage = 'Incorrect username or password'
+          }
+        })
+        .catch(error => {
+          this.isLoading = false
+          this.isError = true
+          this.errorMessage = error
+        })
+
+      setTimeout(() => {
+        this.clearError()
+      }, 6000)
+    },
+    clearError() {
+      if (this.isError === false) {
+        return
+      }
+      this.isError = false
+      this.email = ''
+      this.password = ''
     }
   }
 }
