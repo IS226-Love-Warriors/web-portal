@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default axios.create({
-  baseURL: 'https://is226lovewarriors.netlify.com/',
+  baseURL: 'http://localhost:8080/',
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Max-Age': 3600,

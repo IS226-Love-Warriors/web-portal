@@ -2,3 +2,10 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "http://localhost:8080/"
+  to = "https://protected-atoll-89994.herokuapp.com/"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  headers = {X-From = "Netlify"}
