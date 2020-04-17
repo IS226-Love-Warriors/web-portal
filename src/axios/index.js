@@ -10,6 +10,5 @@ export default axios.create({
     'Content-Type': 'application/json; charset=UTF-8'
   },
   xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-  withCredentials: true,
+  xsrfHeaderName: 'X-XSRF-TOKEN'
 })
