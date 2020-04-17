@@ -6,13 +6,10 @@
           <v-card class="elevation-12">
             <v-toolbar dark flat v-if="!isError">
               <v-toolbar-title>
-                <v-icon>mdi-view-dashboard</v-icon>
-                Mini HomeSchool User Login</v-toolbar-title
-              >
+                <v-icon>mdi-view-dashboard</v-icon>Mini HomeSchool User Login
+              </v-toolbar-title>
             </v-toolbar>
-            <v-alert type="error" v-show="isError">
-              {{ errorMessage }}
-            </v-alert>
+            <v-alert type="error" v-show="isError">{{ errorMessage }}</v-alert>
             <v-card-text>
               <v-form>
                 <v-text-field
@@ -20,7 +17,7 @@
                   v-model="email"
                   prepend-icon="person"
                   type="text"
-                  autocomplete="new-password"
+                  autocomplete="off"
                   :error="isError"
                   @focus="clearError"
                   :disabled="isLoading"
@@ -33,7 +30,7 @@
                   v-model="password"
                   prepend-icon="lock"
                   type="password"
-                  autocomplete="new-password"
+                  autocomplete="off"
                   v-on:keyup.enter="login"
                   :error="isError"
                   :disabled="isLoading"
@@ -42,14 +39,7 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn
-                color="primary"
-                x-large
-                @click="login"
-                :disabled="isLoading || isError"
-                :loading="isLoading"
-                >Login</v-btn
-              >
+              <v-btn color="primary" x-large @click="login" :disabled="isLoading || isError" :loading="isLoading">Login</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -64,7 +54,7 @@ export default {
   props: {
     source: String
   },
-  data() {
+  data () {
     return {
       email: '',
       password: '',
@@ -74,7 +64,7 @@ export default {
     }
   },
   methods: {
-    login() {
+    login () {
       this.isError = false
 
       if (this.isLoading) {
@@ -109,7 +99,7 @@ export default {
         this.clearError()
       }, 6000)
     },
-    clearError() {
+    clearError () {
       if (this.isError === false) {
         return
       }
