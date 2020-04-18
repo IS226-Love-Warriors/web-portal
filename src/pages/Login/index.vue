@@ -40,7 +40,14 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="primary" x-large @click="login" :disabled="isLoading || isError" :loading="isLoading">Login</v-btn>
+              <v-btn
+                color="primary"
+                x-large
+                @click="login"
+                :disabled="isLoading || isError"
+                :loading="isLoading"
+                >Login</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -55,7 +62,7 @@ export default {
   props: {
     source: String
   },
-  data () {
+  data() {
     return {
       email: '',
       password: '',
@@ -65,7 +72,7 @@ export default {
     }
   },
   methods: {
-    login () {
+    login() {
       this.isError = false
 
       if (this.isLoading) {
@@ -83,11 +90,13 @@ export default {
           this.isLoading = false
           if (res.data) {
             this.$store.commit('session/setUser', res.data.data)
-            localStorage.setItem('id', this.$store.state.session.user.id)
             this.$router.push('/')
           } else {
             this.isError = true
             this.errorMessage = 'Incorrect username or password'
+            setTimeout(() => {
+              this.$refs.email.focus()
+            }, 3500)
           }
         })
         .catch(error => {
@@ -98,10 +107,9 @@ export default {
 
       setTimeout(() => {
         this.clearError()
-        this.$refs.email.focus()
       }, 3500)
     },
-    clearError () {
+    clearError() {
       if (this.isError === false) {
         return
       }

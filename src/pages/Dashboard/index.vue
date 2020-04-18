@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Welcome, {{user.firstName}}!</h1>
+    <h1>Welcome, {{ firstName }}!</h1>
   </div>
 </template>
 
@@ -8,10 +8,11 @@
 export default {
   name: 'dashboard',
   computed: {
-    user () { return this.$store.state.session.user }
+    firstName() {
+      return localStorage.getItem('firstName')
+    }
   }
 }
 </script>
 
-<style>
-</style>
+<style></style>

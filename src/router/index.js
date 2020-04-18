@@ -6,6 +6,9 @@ import AccessDenied from '@/components/Error/AccessDenied'
 import MissingPage from '@/components/Error/404'
 
 import Login from '@/pages/Login'
+import Admins from '@/pages/Admins'
+import Teachers from '@/pages/Teachers'
+import Students from '@/pages/Students'
 import Grades from '@/pages/Grades'
 import Profile from '@/pages/Profile'
 
@@ -14,10 +17,26 @@ import Dashboard from '@/pages/Dashboard'
 Vue.use(Router)
 
 let router = new Router({
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/admins',
+      name: 'Admins',
+      component: Admins
+    },
+    {
+      path: '/teachers',
+      name: 'Teachers',
+      component: Teachers
+    },
+    {
+      path: '/students',
+      name: 'Students',
+      component: Students
     },
     {
       path: '/grades',
