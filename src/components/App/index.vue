@@ -8,6 +8,13 @@
       <v-app-bar app clipped-left>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         <v-toolbar-title>Mini HomeSchool Module</v-toolbar-title>
+        <v-progress-linear
+          :active="loading"
+          :indeterminate="loading"
+          absolute
+          bottom
+        >
+        </v-progress-linear>
       </v-app-bar>
 
       <v-content>
@@ -41,16 +48,16 @@ export default {
     source: String
   },
   computed: {
-    authenticated () {
+    authenticated() {
       return this.$route.path !== '/login'
+    },
+    loading() {
+      return this.$store.state.loading.show
     }
   },
   data: () => ({
     drawer: null,
     return: {}
   })
-  // created () {
-  //   this.$vuetify.theme.dark = false
-  // },
 }
 </script>
