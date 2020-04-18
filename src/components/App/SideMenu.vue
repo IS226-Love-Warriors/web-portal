@@ -10,6 +10,33 @@
         </v-list-item-content>
       </v-list-item>
 
+      <v-list-item link to="/admins">
+        <v-list-item-action>
+          <v-icon>mdi-account-cog</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Admins</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item link to="/teachers">
+        <v-list-item-action>
+          <v-icon>mdi-clipboard-account</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Teachers</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item link to="/students">
+        <v-list-item-action>
+          <v-icon>mdi-card-account-details</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Students</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item link to="/grades">
         <v-list-item-action>
           <v-icon>mdi-cog-outline</v-icon>
@@ -48,7 +75,8 @@ export default {
   },
   methods: {
     logOut() {
-      localStorage.removeItem('id')
+      sessionStorage.clear()
+      localStorage.clear()
       this.$router.push('/login')
     }
   }
