@@ -11,9 +11,9 @@
       </v-app-bar>
 
       <v-content>
-        <v-container class="fill-height" fluid>
-          <v-row align="center" justify="center">
-            <v-col class="shrink">
+        <v-container fluid>
+          <v-row>
+            <v-col>
               <router-view />
             </v-col>
           </v-row>
@@ -41,7 +41,7 @@ export default {
     source: String
   },
   computed: {
-    authenticated() {
+    authenticated () {
       return this.$route.path !== '/login'
     }
   },

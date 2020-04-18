@@ -18,6 +18,7 @@
                   prepend-icon="person"
                   type="text"
                   autocomplete="off"
+                  ref="email"
                   :error="isError"
                   @focus="clearError"
                   :disabled="isLoading"
@@ -81,7 +82,7 @@ export default {
         .then(res => {
           this.isLoading = false
           if (res.data) {
-            this.$store.commit('session/setUser', res.data)
+            this.$store.commit('session/setUser', res.data.data)
             localStorage.setItem('id', this.$store.state.session.user.id)
             this.$router.push('/')
           } else {
@@ -97,7 +98,8 @@ export default {
 
       setTimeout(() => {
         this.clearError()
-      }, 6000)
+        this.$refs.email.focus()
+      }, 3500)
     },
     clearError () {
       if (this.isError === false) {
