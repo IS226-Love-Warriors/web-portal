@@ -6,7 +6,8 @@ export default {
       id: null,
       email: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      account: null
     }
   },
   mutations: {
@@ -15,6 +16,12 @@ export default {
       state.user.email = value.email
       state.user.firstName = value.first_name
       state.user.lastName = value.last_name
+      state.user.account = value.account_type
+      localStorage.setItem('id', value.id)
+      localStorage.setItem('email', value.email)
+      localStorage.setItem('firstName', value.first_name)
+      localStorage.setItem('lastName', value.last_name)
+      localStorage.setItem('account', value.account_type)
     }
   }
 }
