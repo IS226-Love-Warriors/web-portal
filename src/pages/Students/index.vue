@@ -3,30 +3,20 @@
     <v-row>
       <v-col align="end">
         <v-btn color="primary" @click="openModal">
-          <v-icon class="mr-2">mdi-card-account-details</v-icon>
-          Add Student
+          <v-icon class="mr-2">mdi-card-account-details</v-icon>Add Student
         </v-btn>
       </v-col>
     </v-row>
     <v-card>
       <v-card-title>
-        <v-icon class="mr-2">mdi-card-account-details</v-icon> Students
+        <v-icon class="mr-2">mdi-card-account-details</v-icon>Students
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="students" :search="search">
         <template v-slot:item.actions="{ item }">
           <v-btn rounded small outlined color="info" @click="viewUser(item)">
-            <v-icon small class="mr-2">
-              mdi-account-search
-            </v-icon>
-            View
+            <v-icon small class="mr-2">mdi-account-search</v-icon>View
           </v-btn>
         </template>
       </v-data-table>
@@ -41,7 +31,7 @@ import axios from '@/axios'
 import AddStudent from './AddStudent'
 
 export default {
-  data() {
+  data () {
     return {
       search: '',
       headers: [
@@ -60,15 +50,15 @@ export default {
   },
   components: { AddStudent },
   computed: {
-    students() {
+    students () {
       return this.$store.state.students.list
     },
-    showModal() {
+    showModal () {
       return this.$store.state.students.showModal
     }
   },
   methods: {
-    init() {
+    init () {
       this.$store.commit('loading/show', true)
       axios
         .get('user/read-all.php')
@@ -87,14 +77,14 @@ export default {
           this.$store.commit('loading/show', false)
         })
     },
-    openModal() {
+    openModal () {
       this.$store.commit('students/setShowModal', true)
     },
-    viewUser(user) {
-      console.log(user)
+    viewUser (user) {
+      this.$router.push('/students/' + user.id)
     }
   },
-  mounted() {
+  mounted () {
     this.init()
   }
 }

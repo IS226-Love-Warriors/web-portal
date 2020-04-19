@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import store from '@/store'
 
 import AccessDenied from '@/components/Error/AccessDenied'
 import MissingPage from '@/components/Error/404'
@@ -10,6 +9,7 @@ import Admins from '@/pages/Admins'
 import Teachers from '@/pages/Teachers'
 import TeacherProfile from '@/pages/Teachers/TeacherProfile'
 import Students from '@/pages/Students'
+import StudentProfile from '@/pages/Students/StudentProfile'
 import Grades from '@/pages/Grades'
 import Profile from '@/pages/Profile'
 
@@ -43,6 +43,11 @@ let router = new Router({
       path: '/students',
       name: 'Students',
       component: Students
+    },
+    {
+      path: '/students/:id',
+      name: 'StudentProfile',
+      component: StudentProfile
     },
     {
       path: '/grades',
