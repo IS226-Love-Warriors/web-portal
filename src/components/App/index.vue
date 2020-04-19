@@ -7,7 +7,9 @@
 
       <v-app-bar app clipped-left>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-        <v-toolbar-title>Mini HomeSchool Module</v-toolbar-title>
+        <v-toolbar-title>
+          <v-icon class="mr-2">mdi-home-city</v-icon> Mini HomeSchool
+        </v-toolbar-title>
         <v-progress-linear
           :active="loading"
           :indeterminate="loading"

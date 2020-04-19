@@ -10,7 +10,7 @@
     </v-row>
     <v-card>
       <v-card-title>
-        Teachers
+        <v-icon class="mr-2">mdi-clipboard-account</v-icon> Teachers
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
