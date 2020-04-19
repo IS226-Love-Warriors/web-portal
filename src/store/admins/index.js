@@ -3,7 +3,8 @@ export default {
   namespaced: true,
   state: {
     list: [],
-    showModal: false
+    showModal: false,
+    profile: {}
   },
   mutations: {
     setList(state, value) {
@@ -11,6 +12,9 @@ export default {
     },
     setShowModal(state, value) {
       state.showModal = value
+    },
+    setProfile(state, value) {
+      state.profile = value
     }
   }
 }

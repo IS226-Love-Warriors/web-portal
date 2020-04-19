@@ -3,30 +3,20 @@
     <v-row>
       <v-col align="end">
         <v-btn color="primary" @click="openModal">
-          <v-icon class="mr-2">mdi-account-cog</v-icon>
-          Add Admin
+          <v-icon class="mr-2">mdi-account-cog</v-icon>Add Admin
         </v-btn>
       </v-col>
     </v-row>
     <v-card>
       <v-card-title>
-        <v-icon class="mr-2">mdi-account-cog</v-icon> Admins
+        <v-icon class="mr-2">mdi-account-cog</v-icon>Admins
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="admins" :search="search">
         <template v-slot:item.actions="{ item }">
           <v-btn rounded small outlined color="info" @click="viewUser(item)">
-            <v-icon small class="mr-2">
-              mdi-account-search
-            </v-icon>
-            View
+            <v-icon small class="mr-2">mdi-account-search</v-icon>View
           </v-btn>
         </template>
       </v-data-table>
@@ -41,7 +31,7 @@ import axios from '@/axios'
 import AddAdmin from './AddAdmin'
 
 export default {
-  data() {
+  data () {
     return {
       search: '',
       headers: [
@@ -59,15 +49,15 @@ export default {
   },
   components: { AddAdmin },
   computed: {
-    admins() {
+    admins () {
       return this.$store.state.admins.list
     },
-    showModal() {
+    showModal () {
       return this.$store.state.admins.showModal
     }
   },
   methods: {
-    init() {
+    init () {
       this.$store.commit('loading/show', true)
       axios
         .get('user/read-all.php')
@@ -86,14 +76,14 @@ export default {
           this.$store.commit('loading/show', false)
         })
     },
-    openModal() {
+    openModal () {
       this.$store.commit('admins/setShowModal', true)
     },
-    viewUser(user) {
-      console.log(user)
+    viewUser (user) {
+      this.$router.push('/admins/' + user.id)
     }
   },
-  mounted() {
+  mounted () {
     this.init()
   }
 }

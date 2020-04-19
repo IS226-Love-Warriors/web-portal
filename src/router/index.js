@@ -6,6 +6,7 @@ import MissingPage from '@/components/Error/404'
 
 import Login from '@/pages/Login'
 import Admins from '@/pages/Admins'
+import AdminProfile from '@/pages/Admins/AdminProfile'
 import Teachers from '@/pages/Teachers'
 import TeacherProfile from '@/pages/Teachers/TeacherProfile'
 import Students from '@/pages/Students'
@@ -28,6 +29,11 @@ let router = new Router({
       path: '/admins',
       name: 'Admins',
       component: Admins
+    },
+    {
+      path: '/admins/:id',
+      name: 'AdminProfile',
+      component: AdminProfile
     },
     {
       path: '/teachers',
