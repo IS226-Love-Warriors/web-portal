@@ -1,39 +1,31 @@
 <template>
-  <div>
-    <v-row>
-      <v-col align="end">
-        <v-btn color="primary" @click="openModal">
-          <v-icon class="mr-2">mdi-clipboard-account</v-icon>
-          Add Teacher
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-card>
-      <v-card-title>
-        <v-icon class="mr-2">mdi-clipboard-account</v-icon> Teachers
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-card-title>
-      <v-data-table :headers="headers" :items="teachers" :search="search">
-        <template v-slot:item.actions="{ item }">
-          <v-btn rounded small outlined color="info" @click="viewTeacher(item)">
-            <v-icon small class="mr-2">
-              mdi-account-search
-            </v-icon>
-            View
+  <v-skeleton-loader :loading="loading" type="card">
+    <div>
+      <v-row>
+        <v-col align="end">
+          <v-btn color="primary" @click="openModal">
+            <v-icon class="mr-2">mdi-clipboard-account</v-icon>Add Teacher
           </v-btn>
-        </template>
-      </v-data-table>
-    </v-card>
+        </v-col>
+      </v-row>
+      <v-card>
+        <v-card-title>
+          <v-icon class="mr-2">mdi-clipboard-account</v-icon>Teachers
+          <v-spacer></v-spacer>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        </v-card-title>
+        <v-data-table :headers="headers" :items="teachers" :search="search">
+          <template v-slot:item.actions="{ item }">
+            <v-btn rounded small outlined color="info" @click="viewTeacher(item)">
+              <v-icon small class="mr-2">mdi-account-search</v-icon>View
+            </v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
 
-    <add-teacher :show="showModal"></add-teacher>
-  </div>
+      <add-teacher :show="showModal"></add-teacher>
+    </div>
+  </v-skeleton-loader>
 </template>
 
 <script>
@@ -41,7 +33,7 @@ import axios from '@/axios'
 import AddTeacher from './AddTeacher'
 
 export default {
-  data() {
+  data () {
     return {
       search: '',
       headers: [
@@ -59,15 +51,18 @@ export default {
   },
   components: { AddTeacher },
   computed: {
-    teachers() {
+    teachers () {
       return this.$store.state.teachers.list
     },
-    showModal() {
+    showModal () {
       return this.$store.state.teachers.showModal
+    },
+    loading () {
+      return this.$store.state.loading.show
     }
   },
   methods: {
-    init() {
+    init () {
       this.$store.commit('loading/show', true)
       axios
         .get('user/read-all.php')
@@ -86,14 +81,14 @@ export default {
           this.$store.commit('loading/show', false)
         })
     },
-    openModal() {
+    openModal () {
       this.$store.commit('teachers/setShowModal', true)
     },
-    viewTeacher(teacher) {
+    viewTeacher (teacher) {
       this.$router.push('/teachers/' + teacher.id)
     }
   },
-  mounted() {
+  mounted () {
     this.init()
   }
 }

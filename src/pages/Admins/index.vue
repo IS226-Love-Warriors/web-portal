@@ -1,29 +1,31 @@
 <template>
-  <div>
-    <v-row>
-      <v-col align="end">
-        <v-btn color="primary" @click="openModal">
-          <v-icon class="mr-2">mdi-account-cog</v-icon>Add Admin
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-card>
-      <v-card-title>
-        <v-icon class="mr-2">mdi-account-cog</v-icon>Admins
-        <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
-      </v-card-title>
-      <v-data-table :headers="headers" :items="admins" :search="search">
-        <template v-slot:item.actions="{ item }">
-          <v-btn rounded small outlined color="info" @click="viewUser(item)">
-            <v-icon small class="mr-2">mdi-account-search</v-icon>View
+  <v-skeleton-loader :loading="loading" type="card">
+    <div>
+      <v-row>
+        <v-col align="end">
+          <v-btn color="primary" @click="openModal">
+            <v-icon class="mr-2">mdi-account-cog</v-icon>Add Admin
           </v-btn>
-        </template>
-      </v-data-table>
-    </v-card>
+        </v-col>
+      </v-row>
+      <v-card>
+        <v-card-title>
+          <v-icon class="mr-2">mdi-account-cog</v-icon>Admins
+          <v-spacer></v-spacer>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        </v-card-title>
+        <v-data-table :headers="headers" :items="admins" :search="search">
+          <template v-slot:item.actions="{ item }">
+            <v-btn rounded small outlined color="info" @click="viewUser(item)">
+              <v-icon small class="mr-2">mdi-account-search</v-icon>View
+            </v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
 
-    <add-admin :show="showModal"></add-admin>
-  </div>
+      <add-admin :show="showModal"></add-admin>
+    </div>
+  </v-skeleton-loader>
 </template>
 
 <script>
@@ -54,7 +56,10 @@ export default {
     },
     showModal () {
       return this.$store.state.admins.showModal
-    }
+    },
+    loading () {
+      return this.$store.state.loading.show
+    },
   },
   methods: {
     init () {
