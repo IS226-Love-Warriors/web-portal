@@ -30,6 +30,19 @@
       <v-footer app>
         <span>&copy; IS226 Love Warriors</span>
       </v-footer>
+
+      <v-snackbar
+        v-model="snackbar.show"
+        :color="snackbar.type"
+        bottom
+        right
+        multi-line
+      >
+        {{ snackbar.message }}
+        <v-btn dark text @click="closeSnackbar">
+          Close
+        </v-btn>
+      </v-snackbar>
     </template>
     <template v-else>
       <login></login>
@@ -43,21 +56,27 @@ import Login from '@/pages/Login'
 
 export default {
   name: 'app',
+  data: () => ({
+    drawer: null,
+    return: {}
+  }),
   components: { SideMenu, Login },
-  props: {
-    source: String
-  },
   computed: {
     authenticated() {
       return this.$route.path !== '/login'
     },
     loading() {
       return this.$store.state.loading.show
+    },
+    snackbar() {
+      return this.$store.state.snackbar
     }
   },
-  data: () => ({
-    drawer: null,
-    return: {}
-  })
+  methods: {
+    closeSnackbar() {
+      this.$store.commit('snackbar/show', false)
+      this.$store.commit('snackbar/set', { type: '', message: '' })
+    }
+  }
 }
 </script>
