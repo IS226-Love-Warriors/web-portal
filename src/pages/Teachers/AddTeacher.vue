@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="show" persistent max-width="600px">
+    <v-dialog v-model="show" persistent max-width="500px">
       <v-card>
         <v-toolbar dark color="primary" flat>
           <v-card-title>
@@ -19,6 +19,8 @@
                     :rules="[v => !!v || 'First name is required']"
                     required
                     :loading="loading"
+                    outlined
+                    hide-details
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
@@ -28,6 +30,8 @@
                     :rules="[v => !!v || 'Last name is required']"
                     required
                     :loading="loading"
+                    outlined
+                    hide-details
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
@@ -37,16 +41,22 @@
                     :rules="emailRules"
                     required
                     :loading="loading"
+                    outlined
+                    hide-details
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
                     label="Password*"
-                    type="password"
                     v-model="password"
                     :rules="[v => !!v || 'Password is required']"
                     required
                     :loading="loading"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
+                    :type="showPassword ? 'text' : 'password'"
+                    outlined
+                    hide-details
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -79,6 +89,7 @@ export default {
     email: '',
     password: '',
     loading: false,
+    showPassword: false,
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -88,6 +99,7 @@ export default {
   methods: {
     closeModal() {
       this.$store.commit('teachers/setShowModal', false)
+      this.showPassword = false
       this.$refs.form.reset()
     },
     saveForm() {
