@@ -127,6 +127,13 @@ export default {
               message: res.data.message
             })
             this.$parent.init()
+          } else {
+            this.loading = false
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.message
+            })
           }
         })
         .catch(err => {
