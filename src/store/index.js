@@ -5,6 +5,7 @@ import loading from './loading'
 import session from './session'
 import snackbar from './snackbar'
 
+import admins from './admins'
 import students from './students'
 import teachers from './teachers'
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     loading,
     session,
     snackbar,
+    admins,
     students,
     teachers
   }
