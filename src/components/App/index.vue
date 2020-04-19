@@ -5,7 +5,7 @@
         <SideMenu></SideMenu>
       </v-navigation-drawer>
 
-      <v-app-bar app clipped-left>
+      <v-app-bar app clipped-left dark color="primary">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         <v-toolbar-title>
           <v-icon class="mr-2">mdi-home-city</v-icon> Mini HomeSchool
@@ -15,6 +15,7 @@
           :indeterminate="loading"
           absolute
           bottom
+          color="orange darken-1"
         >
         </v-progress-linear>
       </v-app-bar>

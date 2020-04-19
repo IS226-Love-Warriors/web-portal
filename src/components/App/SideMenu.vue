@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-list dense>
-      <v-list-item link to="/">
+      <v-list-item link to="/" color="primary">
         <v-list-item-action>
           <v-icon>mdi-view-dashboard</v-icon>
         </v-list-item-action>
@@ -10,7 +10,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/admins">
+      <v-list-item link to="/admins" color="primary">
         <v-list-item-action>
           <v-icon>mdi-account-cog</v-icon>
         </v-list-item-action>
@@ -19,7 +19,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/teachers">
+      <v-list-item link to="/teachers" color="primary">
         <v-list-item-action>
           <v-icon>mdi-clipboard-account</v-icon>
         </v-list-item-action>
@@ -28,7 +28,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/students">
+      <v-list-item link to="/students" color="primary">
         <v-list-item-action>
           <v-icon>mdi-card-account-details</v-icon>
         </v-list-item-action>
@@ -37,7 +37,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/grades">
+      <v-list-item link to="/grades" color="primary">
         <v-list-item-action>
           <v-icon>mdi-cog-outline</v-icon>
         </v-list-item-action>
@@ -46,7 +46,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/profile">
+      <v-list-item link to="/profile" color="primary">
         <v-list-item-action>
           <v-icon>mdi-account</v-icon>
         </v-list-item-action>
@@ -55,7 +55,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item @click="logOut">
+      <v-list-item @click="logOut" color="primary">
         <v-list-item-action>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-action>
