@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-row>
-      <v-col align="end" @click="openModal">
-        <v-btn color="primary">
+      <v-col align="end">
+        <v-btn color="primary" @click="openModal">
           <v-icon class="mr-2">mdi-clipboard-account</v-icon>
           Add Teacher
         </v-btn>
