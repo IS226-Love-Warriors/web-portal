@@ -2,9 +2,12 @@
   <v-row justify="center">
     <v-dialog v-model="show" persistent max-width="600px">
       <v-card>
-        <v-card-title>
-          <span class="headline">Add New Teacher</span>
-        </v-card-title>
+        <v-toolbar dark color="primary" flat>
+          <v-card-title>
+            <v-icon class="mr-2">mdi-clipboard-account</v-icon>
+            <span class="headline">Add New Teacher</span>
+          </v-card-title>
+        </v-toolbar>
         <v-card-text>
           <v-container>
             <v-form ref="form" lazy-validation>
@@ -56,7 +59,7 @@
           <v-btn large color="primary" @click="saveForm" :disabled="loading">
             Save
           </v-btn>
-          <v-btn large color="blue darken-1" text @click="closeModal">
+          <v-btn large color="grey" text @click="closeModal">
             Cancel
           </v-btn>
         </v-card-actions>
