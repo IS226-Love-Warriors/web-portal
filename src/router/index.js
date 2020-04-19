@@ -8,6 +8,7 @@ import MissingPage from '@/components/Error/404'
 import Login from '@/pages/Login'
 import Admins from '@/pages/Admins'
 import Teachers from '@/pages/Teachers'
+import TeacherProfile from '@/pages/Teachers/TeacherProfile'
 import Students from '@/pages/Students'
 import Grades from '@/pages/Grades'
 import Profile from '@/pages/Profile'
@@ -32,6 +33,11 @@ let router = new Router({
       path: '/teachers',
       name: 'Teachers',
       component: Teachers
+    },
+    {
+      path: '/teachers/:id',
+      name: 'TeacherProfile',
+      component: TeacherProfile
     },
     {
       path: '/students',

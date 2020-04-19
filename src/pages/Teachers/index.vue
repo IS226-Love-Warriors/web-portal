@@ -90,7 +90,7 @@ export default {
       this.$store.commit('teachers/setShowModal', true)
     },
     viewTeacher(teacher) {
-      console.log(teacher)
+      this.$router.push('/teachers/' + teacher.id)
     }
   },
   mounted() {
