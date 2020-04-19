@@ -12,6 +12,7 @@ import TeacherProfile from '@/pages/Teachers/TeacherProfile'
 import Students from '@/pages/Students'
 import StudentProfile from '@/pages/Students/StudentProfile'
 import Grades from '@/pages/Grades'
+import Subjects from '@/pages/Subjects'
 import Profile from '@/pages/Profile'
 
 import Dashboard from '@/pages/Dashboard'
@@ -59,6 +60,11 @@ let router = new Router({
       path: '/grades',
       name: 'Grades',
       component: Grades
+    },
+    {
+      path: '/subjects',
+      name: 'Subjects',
+      component: Subjects
     },
     {
       path: '*',

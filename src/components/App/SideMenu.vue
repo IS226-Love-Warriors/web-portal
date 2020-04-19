@@ -37,9 +37,18 @@
         </v-list-item-content>
       </v-list-item>
 
+      <v-list-item link to="/subjects" color="primary">
+        <v-list-item-action>
+          <v-icon>mdi-bookshelf</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Subjects</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item link to="/grades" color="primary">
         <v-list-item-action>
-          <v-icon>mdi-cog-outline</v-icon>
+          <v-icon>mdi-format-list-numbered</v-icon>
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>Grades</v-list-item-title>
@@ -70,11 +79,11 @@
 <script>
 export default {
   name: 'side-menu',
-  data() {
+  data () {
     return {}
   },
   methods: {
-    logOut() {
+    logOut () {
       sessionStorage.clear()
       localStorage.clear()
       this.$router.push('/login')
