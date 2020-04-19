@@ -53,6 +53,7 @@ export default {
         { text: 'First Name', value: 'first_name' },
         { text: 'Last Name', value: 'last_name' },
         { text: 'Email', value: 'email' },
+        { text: 'Grade Level', value: 'grade_year_level' },
         { text: 'Actions', value: 'actions', sortable: false }
       ]
     }
