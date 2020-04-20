@@ -9,6 +9,8 @@ import admins from './admins'
 import students from './students'
 import teachers from './teachers'
 
+import subjects from './subjects'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -18,6 +20,7 @@ export default new Vuex.Store({
     snackbar,
     admins,
     students,
-    teachers
+    teachers,
+    subjects
   }
 })

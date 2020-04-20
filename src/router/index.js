@@ -13,6 +13,7 @@ import Students from '@/pages/Students'
 import StudentProfile from '@/pages/Students/StudentProfile'
 import Grades from '@/pages/Grades'
 import Subjects from '@/pages/Subjects'
+import SubjectDetails from '@/pages/Subjects/SubjectDetails'
 import Profile from '@/pages/Profile'
 
 import Dashboard from '@/pages/Dashboard'
@@ -65,6 +66,11 @@ let router = new Router({
       path: '/subjects',
       name: 'Subjects',
       component: Subjects
+    },
+    {
+      path: '/subjects/:id',
+      name: 'SubjectDetails',
+      component: SubjectDetails
     },
     {
       path: '*',
