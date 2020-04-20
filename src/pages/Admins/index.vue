@@ -1,6 +1,6 @@
 <template>
-  <v-skeleton-loader :loading="loading" type="card">
-    <div>
+  <div>
+    <v-skeleton-loader :loading="loading" type="card">
       <v-row>
         <v-col align="end">
           <v-btn color="primary" @click="openModal">
@@ -22,10 +22,9 @@
           </template>
         </v-data-table>
       </v-card>
-
-      <add-admin :show="showModal"></add-admin>
-    </div>
-  </v-skeleton-loader>
+    </v-skeleton-loader>
+    <add-admin :show="showModal"></add-admin>
+  </div>
 </template>
 
 <script>
