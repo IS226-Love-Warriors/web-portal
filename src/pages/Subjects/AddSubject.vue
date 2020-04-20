@@ -24,6 +24,18 @@
                     hide-details
                   ></v-text-field>
                 </v-col>
+                <v-col cols="12">
+                  <v-autocomplete
+                    :items="teachers"
+                    v-model="teacher"
+                    item-text="name"
+                    item-value="id"
+                    label="Assigned Teacher*"
+                    outlined
+                    :rules="[v => !!v || 'This is required']"
+                    hide-details
+                  ></v-autocomplete>
+                </v-col>
                 <v-col cols="12" sm="4" md="4">
                   <v-text-field
                     label="Grade Level*"
@@ -74,12 +86,18 @@ export default {
   name: 'add-subject',
   data: () => ({
     subjectName: '',
+    teacher: '',
     gradeLevel: '',
     acadYear: '',
     loading: false,
     year: ['2019 - 2020', '2018 - 2019']
   }),
   props: ['show'],
+  computed: {
+    teachers () {
+      return this.$store.state.teachers.list
+    }
+  },
   methods: {
     closeModal () {
       this.$store.commit('subjects/setShowModal', false)
@@ -104,7 +122,7 @@ export default {
         level: level,
         grade_year: 'Grade ' + this.gradeLevel,
         acad_year: this.acadYear,
-        assigned_teacher: 'tchr001'
+        assigned_teacher: this.teacher
       }
       axios
         .post('subject/create.php', params)
@@ -135,7 +153,33 @@ export default {
             message: err.message
           })
         })
+    },
+    getAllTeachers () {
+      this.$store.commit('loading/show', true)
+      axios
+        .get('user/read-all.php')
+        .then(res => {
+          let teacher = res.data.users
+          teacher = teacher.filter(x => x.account_type == '2')
+          teacher = teacher.map(x => ({
+            name: `${x.first_name} ${x.last_name}`,
+            id: x.id
+          }))
+          this.$store.commit('teachers/setList', teacher)
+          this.$store.commit('loading/show', false)
+        })
+        .catch(err => {
+          this.$store.commit('snackbar/show', true)
+          this.$store.commit('snackbar/set', {
+            type: 'error',
+            message: err.message
+          })
+          this.$store.commit('loading/show', false)
+        })
     }
+  },
+  mounted () {
+    this.getAllTeachers()
   }
 }
 </script>
