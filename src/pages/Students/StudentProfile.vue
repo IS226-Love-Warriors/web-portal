@@ -7,6 +7,7 @@
       <v-card>
         <v-card-title>{{ student.first_name }} {{ student.last_name }}</v-card-title>
         <v-card-text>{{ student.email }}</v-card-text>
+        <v-card-text class="pt-0">{{ student.grade_year_level }} (A.Y. {{student.acad_year}})</v-card-text>
       </v-card>
     </div>
   </v-skeleton-loader>
