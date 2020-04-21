@@ -4,10 +4,17 @@
       <v-btn large color="grey" text class="pa-0" @click="back">
         <v-icon class="mr-2">mdi-keyboard-backspace</v-icon>Back
       </v-btn>
-      <v-card>
-        <v-card-title>{{ student.first_name }} {{ student.last_name }}</v-card-title>
-        <v-card-text>{{ student.email }}</v-card-text>
-        <v-card-text class="pt-0">{{ student.grade_year_level }} (A.Y. {{student.acad_year}})</v-card-text>
+      <v-card class="d-flex">
+        <div class="pa-4 pr-0">
+          <v-avatar color="primary" size="52">
+            <span class="white--text headline">{{firstLetter(student.first_name, student.last_name)}}</span>
+          </v-avatar>
+        </div>
+        <div>
+          <v-card-title class="pb-1">{{ student.first_name }} {{ student.last_name }}</v-card-title>
+          <v-card-text class="pb-0">{{ student.email }}</v-card-text>
+          <v-card-text class="pt-0">{{ student.grade_year_level }} (A.Y. {{student.acad_year}})</v-card-text>
+        </div>
       </v-card>
     </div>
   </v-skeleton-loader>
@@ -33,6 +40,10 @@ export default {
   methods: {
     back () {
       this.$router.push('/students')
+    },
+    firstLetter (fname, lname) {
+      let initials = fname[0] + lname[0]
+      return initials
     }
   },
   mounted () {
