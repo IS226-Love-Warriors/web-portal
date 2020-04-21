@@ -46,6 +46,7 @@ export default {
         { text: 'Subject Name', value: 'subject_name' },
         { text: 'Grade Level', value: 'grade_level' },
         { text: 'Academic Year', value: 'acad_year' },
+        { text: 'Assigned Teacher', value: 'assigned_teacher.name' },
         { text: 'Actions', value: 'actions', sortable: false }
       ]
     }
@@ -68,7 +69,7 @@ export default {
       axios
         .get('subject/read-all.php')
         .then(res => {
-          let record = res.data.records
+          let record = res.data.data.records
           this.$store.commit('subjects/setList', record)
           this.$store.commit('loading/show', false)
         })
