@@ -4,17 +4,19 @@ import Router from 'vue-router'
 import AccessDenied from '@/components/Error/AccessDenied'
 import MissingPage from '@/components/Error/404'
 
-import Login from '@/pages/Login'
+import Profile from '@/pages/Profile'
 import Admins from '@/pages/Admins'
 import AdminProfile from '@/pages/Admins/AdminProfile'
 import Teachers from '@/pages/Teachers'
 import TeacherProfile from '@/pages/Teachers/TeacherProfile'
 import Students from '@/pages/Students'
 import StudentProfile from '@/pages/Students/StudentProfile'
+
+import Login from '@/pages/Login'
+import Exams from '@/pages/Exams'
 import Grades from '@/pages/Grades'
 import Subjects from '@/pages/Subjects'
 import SubjectDetails from '@/pages/Subjects/SubjectDetails'
-import Profile from '@/pages/Profile'
 
 import Dashboard from '@/pages/Dashboard'
 
@@ -56,6 +58,11 @@ let router = new Router({
       path: '/students/:id',
       name: 'StudentProfile',
       component: StudentProfile
+    },
+    {
+      path: '/exams',
+      name: 'Exams',
+      component: Exams
     },
     {
       path: '/grades',

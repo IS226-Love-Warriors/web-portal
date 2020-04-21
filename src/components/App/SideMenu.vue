@@ -46,6 +46,15 @@
         </v-list-item-content>
       </v-list-item>
 
+      <v-list-item link to="/exams" color="primary">
+        <v-list-item-action>
+          <v-icon>mdi-clipboard-check-multiple-outline</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Exams</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item link to="/grades" color="primary">
         <v-list-item-action>
           <v-icon>mdi-format-list-numbered</v-icon>
