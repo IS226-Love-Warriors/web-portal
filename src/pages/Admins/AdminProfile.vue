@@ -41,6 +41,7 @@ export default {
       this.$router.push('/admins')
     },
     firstLetter (fname, lname) {
+      if (!fname && !lname) { return }
       let initials = fname[0] + lname[0]
       return initials
     }

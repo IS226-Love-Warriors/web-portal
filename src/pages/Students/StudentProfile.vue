@@ -42,6 +42,7 @@ export default {
       this.$router.push('/students')
     },
     firstLetter (fname, lname) {
+      if (!fname && !lname) { return }
       let initials = fname[0] + lname[0]
       return initials
     }
