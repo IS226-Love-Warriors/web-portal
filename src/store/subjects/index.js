@@ -4,7 +4,7 @@ export default {
   state: {
     list: [],
     showModal: false,
-    profile: {}
+    item: {}
   },
   mutations: {
     setList(state, value) {
@@ -13,8 +13,8 @@ export default {
     setShowModal(state, value) {
       state.showModal = value
     },
-    setProfile(state, value) {
-      state.profile = value
+    setItem(state, value) {
+      state.item = value
     }
   }
 }

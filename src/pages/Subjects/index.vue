@@ -4,32 +4,34 @@
       <v-row>
         <v-col align="end" class="pt-1">
           <v-btn color="primary" @click="openModal">
-            <v-icon class="mr-2">mdi-card-account-details</v-icon>Add Student
+            <v-icon class="mr-2">mdi-bookshelf</v-icon>Add Subject
           </v-btn>
         </v-col>
       </v-row>
       <v-card>
         <v-card-title>
-          <v-icon class="mr-2">mdi-card-account-details</v-icon>Students
+          <v-icon class="mr-2">mdi-bookshelf</v-icon>Subjects
           <v-spacer></v-spacer>
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
         </v-card-title>
-        <v-data-table :headers="headers" :items="students" :search="search">
+
+        <v-data-table :headers="headers" :items="subjects" :search="search">
+          <template #item.grade_level="{ item }">{{ item.grade_year }} ({{ item.level }})</template>
           <template v-slot:item.actions="{ item }">
-            <v-btn rounded small outlined color="info" @click="viewUser(item)">
-              <v-icon small class="mr-2">mdi-account-search</v-icon>View
+            <v-btn rounded small outlined color="info" @click="viewSubject(item)">
+              <v-icon small class="mr-2">mdi-magnify</v-icon>View
             </v-btn>
           </template>
         </v-data-table>
       </v-card>
     </v-skeleton-loader>
-    <add-student :show="showModal"></add-student>
+    <add-subject :show="showModal"></add-subject>
   </div>
 </template>
 
 <script>
 import axios from '@/axios'
-import AddStudent from './AddStudent'
+import AddSubject from './AddSubject'
 
 export default {
   data () {
@@ -37,25 +39,25 @@ export default {
       search: '',
       headers: [
         {
-          text: 'Student ID',
+          text: 'Subject ID',
           align: 'start',
-          value: 'id'
+          value: 'subject_id'
         },
-        { text: 'First Name', value: 'first_name' },
-        { text: 'Last Name', value: 'last_name' },
-        { text: 'Email', value: 'email' },
-        { text: 'Grade Level', value: 'grade_year_level' },
+        { text: 'Subject Name', value: 'subject_name' },
+        { text: 'Grade Level', value: 'grade_level' },
+        { text: 'Academic Year', value: 'acad_year' },
+        { text: 'Assigned Teacher', value: 'assigned_teacher.name' },
         { text: 'Actions', value: 'actions', sortable: false }
       ]
     }
   },
-  components: { AddStudent },
+  components: { AddSubject },
   computed: {
-    students () {
-      return this.$store.state.students.list
+    subjects () {
+      return this.$store.state.subjects.list
     },
     showModal () {
-      return this.$store.state.students.showModal
+      return this.$store.state.subjects.showModal
     },
     loading () {
       return this.$store.state.loading.show
@@ -65,11 +67,10 @@ export default {
     init () {
       this.$store.commit('loading/show', true)
       axios
-        .get('user/read-all.php')
+        .get('subject/read-all.php')
         .then(res => {
-          let user = res.data.users
-          user = user.filter(x => x.account_type == '3')
-          this.$store.commit('students/setList', user)
+          let record = res.data.data.records
+          this.$store.commit('subjects/setList', record)
           this.$store.commit('loading/show', false)
         })
         .catch(err => {
@@ -82,10 +83,10 @@ export default {
         })
     },
     openModal () {
-      this.$store.commit('students/setShowModal', true)
+      this.$store.commit('subjects/setShowModal', true)
     },
-    viewUser (user) {
-      this.$router.push('/students/' + user.id)
+    viewSubject (item) {
+      this.$router.push('/subjects/' + item.subject_id)
     }
   },
   mounted () {

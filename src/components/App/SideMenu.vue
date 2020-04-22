@@ -1,61 +1,16 @@
 <template>
   <div>
     <v-list dense>
-      <v-list-item link to="/">
+      <v-list-item v-for="page in pages" :key="page.link" link :to="page.link" color="primary">
         <v-list-item-action>
-          <v-icon>mdi-view-dashboard</v-icon>
+          <v-icon>{{page.icon}}</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>Dashboard</v-list-item-title>
+          <v-list-item-title>{{page.name}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/admins">
-        <v-list-item-action>
-          <v-icon>mdi-account-cog</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Admins</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="/teachers">
-        <v-list-item-action>
-          <v-icon>mdi-clipboard-account</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Teachers</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="/students">
-        <v-list-item-action>
-          <v-icon>mdi-card-account-details</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Students</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="/grades">
-        <v-list-item-action>
-          <v-icon>mdi-cog-outline</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Grades</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="/profile">
-        <v-list-item-action>
-          <v-icon>mdi-account</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Profile</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item @click="logOut">
+      <v-list-item @click="logOut" color="primary">
         <v-list-item-action>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-action>
@@ -70,11 +25,22 @@
 <script>
 export default {
   name: 'side-menu',
-  data() {
-    return {}
+  data () {
+    return {
+      pages: [
+        { link: '/', icon: 'mdi-view-dashboard', name: 'Dashboard' },
+        { link: '/admins', icon: 'mdi-account-cog', name: 'Admins' },
+        { link: '/teachers', icon: 'mdi-clipboard-account', name: 'Teachers' },
+        { link: '/students', icon: 'mdi-card-account-details', name: 'Students' },
+        { link: '/subjects', icon: 'mdi-bookshelf', name: 'Subjects' },
+        { link: '/exams', icon: 'mdi-clipboard-check-multiple', name: 'Exams' },
+        { link: '/grades', icon: 'mdi-format-list-numbered', name: 'Grades' },
+        { link: '/profile', icon: 'mdi-account', name: 'Profile' }
+      ]
+    }
   },
   methods: {
-    logOut() {
+    logOut () {
       sessionStorage.clear()
       localStorage.clear()
       this.$router.push('/login')
