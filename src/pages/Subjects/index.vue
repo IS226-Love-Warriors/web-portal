@@ -2,7 +2,7 @@
   <div>
     <v-skeleton-loader :loading="loading" type="card">
       <v-row>
-        <v-col align="end">
+        <v-col align="end" class="pt-1">
           <v-btn color="primary" @click="openModal">
             <v-icon class="mr-2">mdi-bookshelf</v-icon>Add Subject
           </v-btn>
