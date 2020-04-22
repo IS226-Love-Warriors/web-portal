@@ -86,8 +86,7 @@ export default {
       this.$store.commit('subjects/setShowModal', true)
     },
     viewSubject (item) {
-      // this.$router.push('/subjects/' + item.subject_id)
-      alert('Not working yet. No view page for ' + item.subject_name)
+      this.$router.push('/subjects/' + item.subject_id)
     }
   },
   mounted () {

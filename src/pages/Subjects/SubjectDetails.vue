@@ -5,8 +5,12 @@
         <v-icon class="mr-2">mdi-keyboard-backspace</v-icon>Back
       </v-btn>
       <v-card>
-        <v-card-title>{{ admin.first_name }} {{ admin.last_name }}</v-card-title>
-        <v-card-text>{{ admin.email }}</v-card-text>
+        <v-card-title>{{ subject.subject_name }}</v-card-title>
+        <v-card-text class="py-0">
+          <strong>{{ subject.assigned_teacher.name }}</strong>
+        </v-card-text>
+        <v-card-text class="py-0">{{ subject.grade_year }} ({{ subject.level }})</v-card-text>
+        <v-card-text class="pt-0">A.Y. {{ subject.acad_year }}</v-card-text>
       </v-card>
     </div>
   </v-skeleton-loader>
@@ -16,14 +20,14 @@
 import axios from '@/axios'
 
 export default {
-  name: 'admin-profile',
+  name: 'subject-profile',
   data () {
     return {
     }
   },
   computed: {
-    admin () {
-      return this.$store.state.subjects.profile
+    subject () {
+      return this.$store.state.subjects.item
     },
     loading () {
       return this.$store.state.loading.show
@@ -38,21 +42,11 @@ export default {
     this.$store.commit('loading/show', true)
 
     let id = window.location.pathname.split('/')[2]
-    id = { user_id: id }
+    id = { subject_id: id }
     axios
-      .post('user/read-one.php', id)
+      .post('subject/read-one.php', id)
       .then(res => {
         if (res.data) {
-          if (res.data.data.account_type != 1) {
-            this.$store.commit('snackbar/show', true)
-            this.$store.commit('snackbar/set', {
-              type: 'error',
-              message: 'Record not found'
-            })
-            this.$store.commit('loading/show', false)
-            this.$router.push('/subjects')
-            return
-          }
           this.$store.commit('subjects/setItem', res.data.data)
           this.$store.commit('loading/show', false)
         }
