@@ -8,8 +8,8 @@
 export default {
   name: 'dashboard',
   computed: {
-    firstName() {
-      return localStorage.getItem('firstName')
+    firstName () {
+      return JSON.parse(localStorage.getItem('user')).first_name
     }
   }
 }

@@ -33,7 +33,10 @@ let router = new Router({
     {
       path: '/admins',
       name: 'Admins',
-      component: Admins
+      component: Admins,
+      meta: {
+        authorize: [1]
+      }
     },
     {
       path: '/admins/:id',
@@ -53,7 +56,10 @@ let router = new Router({
     {
       path: '/students',
       name: 'Students',
-      component: Students
+      component: Students,
+      meta: {
+        authorize: [1, 2]
+      }
     },
     {
       path: '/students/:id',
@@ -123,6 +129,15 @@ router.beforeEach((to, from, next) => {
     next('/login')
     return
   }
+
+  const { authorize } = to.meta
+  const role = localStorage.getItem('account')
+  if (authorize) {
+    if (!authorize.includes(role)) {
+      return next('/accessdenied')
+    }
+  }
+
   next()
 })
 
