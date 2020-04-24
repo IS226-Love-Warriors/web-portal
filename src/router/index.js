@@ -131,7 +131,7 @@ router.beforeEach((to, from, next) => {
   }
 
   const { authorize } = to.meta
-  const role = localStorage.getItem('account')
+  const role = parseInt(localStorage.getItem('account'))
   if (authorize) {
     if (!authorize.includes(role)) {
       return next('/accessdenied')
