@@ -14,6 +14,7 @@ import StudentProfile from '@/pages/Students/StudentProfile'
 
 import Login from '@/pages/Login'
 import Exams from '@/pages/Exams'
+import ExamDetails from '@/pages/Exams/ExamDetails'
 import Grades from '@/pages/Grades'
 import Subjects from '@/pages/Subjects'
 import SubjectDetails from '@/pages/Subjects/SubjectDetails'
@@ -63,6 +64,11 @@ let router = new Router({
       path: '/exams',
       name: 'Exams',
       component: Exams
+    },
+    {
+      path: '/exams/:id',
+      name: 'ExamDetails',
+      component: ExamDetails
     },
     {
       path: '/grades',
