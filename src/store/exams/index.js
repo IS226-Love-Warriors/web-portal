@@ -4,7 +4,9 @@ export default {
   state: {
     list: [],
     showModal: false,
-    item: {}
+    item: {
+      records: []
+    }
   },
   mutations: {
     setList(state, value) {
