@@ -16,6 +16,7 @@ import StudentProfile from '@/pages/Students/StudentProfile'
 import Exams from '@/pages/Exams'
 import ExamDetails from '@/pages/Exams/ExamDetails'
 import AnswerExam from '@/pages/Exams/AnswerExam'
+import ViewAnswer from '@/pages/Exams/ViewAnsweredExam'
 
 import Grades from '@/pages/Grades'
 import Subjects from '@/pages/Subjects'
@@ -82,6 +83,14 @@ let router = new Router({
       path: '/exams/:id/answer',
       name: 'AnswerExam',
       component: AnswerExam,
+      meta: {
+        authorize: [3]
+      }
+    },
+    {
+      path: '/exams/:id/view-answer',
+      name: 'ViewAnswer',
+      component: ViewAnswer,
       meta: {
         authorize: [3]
       }
