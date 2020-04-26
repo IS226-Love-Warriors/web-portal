@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Login from '@/pages/Login'
 import AccessDenied from '@/components/Error/AccessDenied'
 import MissingPage from '@/components/Error/404'
 
@@ -12,9 +13,10 @@ import TeacherProfile from '@/pages/Teachers/TeacherProfile'
 import Students from '@/pages/Students'
 import StudentProfile from '@/pages/Students/StudentProfile'
 
-import Login from '@/pages/Login'
 import Exams from '@/pages/Exams'
 import ExamDetails from '@/pages/Exams/ExamDetails'
+import AnswerExam from '@/pages/Exams/AnswerExam'
+
 import Grades from '@/pages/Grades'
 import Subjects from '@/pages/Subjects'
 import SubjectDetails from '@/pages/Subjects/SubjectDetails'
@@ -75,6 +77,14 @@ let router = new Router({
       path: '/exams/:id',
       name: 'ExamDetails',
       component: ExamDetails
+    },
+    {
+      path: '/exams/:id/answer',
+      name: 'AnswerExam',
+      component: AnswerExam,
+      meta: {
+        authorize: [3]
+      }
     },
     {
       path: '/grades',

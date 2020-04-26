@@ -87,6 +87,10 @@ export default {
       this.showModal = false
     },
     viewSubject (item) {
+      if (localStorage.getItem('account') == 3) {
+        this.$router.push('/exams/' + item.exam_id + '/answer')
+        return
+      }
       this.$router.push('/exams/' + item.exam_id)
     }
   },
