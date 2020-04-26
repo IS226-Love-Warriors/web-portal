@@ -15,6 +15,9 @@ export default {
     },
     setItem(state, value) {
       state.item = value
+    },
+    resetItem(state) {
+      state.item = {}
     }
   }
 }
