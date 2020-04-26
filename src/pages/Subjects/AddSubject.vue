@@ -1,11 +1,11 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="show" persistent max-width="500px">
-      <v-card>
+      <v-card v-if="stepForm == 0">
         <v-toolbar dark color="primary" flat>
           <v-card-title>
             <span class="headline">
-              <v-icon class="mr-2">mdi-bookshelf</v-icon>Add New Subject
+              <v-icon class="mr-2">mdi-bookshelf</v-icon>Add New Subject (1/2)
             </span>
           </v-card-title>
         </v-toolbar>
@@ -71,8 +71,69 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn large color="primary" @click="saveForm" :disabled="loading">Save</v-btn>
           <v-btn large color="grey" text @click="closeModal">Cancel</v-btn>
+          <v-btn large color="primary" @click="next" :disabled="loading">Next</v-btn>
+        </v-card-actions>
+      </v-card>
+
+      <v-card v-else>
+        <v-toolbar dark color="primary" flat>
+          <v-card-title>
+            <span class="headline">
+              <v-icon class="mr-2">mdi-bookshelf</v-icon>Create Grade Matrix (2/2)
+            </span>
+          </v-card-title>
+        </v-toolbar>
+
+        <v-card-text>
+          <v-container>
+            <v-form ref="form" lazy-validation>
+              <v-row v-for="(input, i) in criteria" :key="i">
+                <v-col cols="12" sm="6" md="6">
+                  <v-text-field
+                    label="Criteria Name*"
+                    v-model="input.criteria_name"
+                    :rules="[v => !!v]"
+                    required
+                    outlined
+                    :loading="loading"
+                    hide-details
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="4" md="4">
+                  <v-text-field
+                    label="Percentage*"
+                    v-model="input.percentage"
+                    :rules="[
+                      v =>
+                        (v <= 100 && v >= 1)
+                    ]"
+                    required
+                    outlined
+                    hide-details
+                    type="number"
+                    :loading="loading"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="2" md="2" class="d-flex pa-0">
+                  <v-icon
+                    @click="remove(i)"
+                    class="mr-1"
+                    color="error"
+                    v-show="i || ( !i && criteria.length > 1)"
+                    large
+                  >mdi-minus-circle</v-icon>
+                  <v-icon @click="add()" color="success" v-show="i == criteria.length-1" large>mdi-plus-circle</v-icon>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-container>
+          <span style="color: red;" v-show="hasError">*Sum of percentage must be equal to 100%</span>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn large color="grey" text @click="closeModal">Cancel</v-btn>
+          <v-btn large color="primary" @click="saveForm" :disabled="loading">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -89,8 +150,13 @@ export default {
     teacher: '',
     gradeLevel: '',
     acadYear: '',
+    stepForm: 0,
     loading: false,
-    year: ['2019 - 2020', '2018 - 2019']
+    hasError: false,
+    year: ['2019 - 2020', '2018 - 2019'],
+    criteria: [
+      { criteria_name: '', percentage: 0 }
+    ]
   }),
   props: ['show'],
   computed: {
@@ -100,8 +166,37 @@ export default {
   },
   methods: {
     closeModal () {
+      this.subjectName = ''
+      this.teacher = ''
+      this.gradeLevel = ''
+      this.acadYear = ''
       this.$store.commit('subjects/setShowModal', false)
       this.$refs.form.reset()
+      this.stepForm = 0
+    },
+    add () {
+      this.criteria.push({ criteria_name: '', percentage: 0 })
+    },
+    remove (index) {
+      this.criteria.splice(index, 1)
+    },
+    next () {
+      if (!this.$refs.form.validate()) {
+        return
+      }
+      this.stepForm++
+    },
+    checkPercentage () {
+      let total = 0
+      this.criteria.forEach((x) => {
+        total += parseInt(x.percentage)
+      })
+      if (total != 100) {
+        this.hasError = true
+        this.loading = false
+        return false
+      }
+      return true
     },
     saveForm () {
       this.loading = true
@@ -109,6 +204,11 @@ export default {
         this.loading = false
         return
       }
+      if (this.checkPercentage()) {
+        this.saveToDB()
+      }
+    },
+    saveToDB () {
       let level = ''
       if (this.gradeLevel <= 6) {
         level = 'Elementary'
@@ -122,7 +222,8 @@ export default {
         level: level,
         grade_year: 'Grade ' + this.gradeLevel,
         acad_year: this.acadYear,
-        assigned_teacher: this.teacher
+        assigned_teacher: this.teacher,
+        criteria: this.criteria
       }
       axios
         .post('subject/create.php', params)
