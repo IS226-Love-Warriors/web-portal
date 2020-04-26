@@ -10,6 +10,19 @@
         <v-container>
           <v-form ref="form" lazy-validation>
             <v-col cols="12">
+              <v-autocomplete
+                :items="criterias"
+                v-model="criteria"
+                item-text="criteria_name"
+                item-value="criteria_id"
+                label="Criteria*"
+                outlined
+                :rules="[v => !!v || 'This is required']"
+                hide-details
+                :loading="loading"
+              ></v-autocomplete>
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="description"
                 label="Exam Description"
@@ -43,7 +56,7 @@
                     :loading="loading"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" no-title @input="calendar = false"></v-date-picker>
+                <v-date-picker v-model="date" @input="calendar = false" :min="currentDate"></v-date-picker>
               </v-menu>
             </v-col>
           </v-form>
@@ -68,10 +81,19 @@ export default {
       loading: false,
       calendar: false,
       date: '',
-      description: ''
+      description: '',
+      criteria: ''
     }
   },
   props: ['show', 'id'],
+  computed: {
+    criterias () {
+      return this.$store.state.subjects.item.criterias
+    },
+    currentDate () {
+      return new Date().toISOString().substr(0, 10)
+    }
+  },
   methods: {
     closeModal () {
       this.$parent.closeModal()
@@ -86,7 +108,8 @@ export default {
       let params = {
         subject_id: this.id,
         exam_date: this.date,
-        exam_desc: this.description
+        exam_desc: this.description,
+        criteria_id: this.criteria
       }
       axios
         .post('examination/create.php', params)

@@ -4,7 +4,9 @@ export default {
   state: {
     list: [],
     showModal: false,
-    item: {}
+    item: {
+      records: []
+    }
   },
   mutations: {
     setList(state, value) {
@@ -15,9 +17,6 @@ export default {
     },
     setItem(state, value) {
       state.item = value
-    },
-    resetItem(state) {
-      state.item = {}
     }
   }
 }

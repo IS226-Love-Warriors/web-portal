@@ -40,14 +40,7 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn
-                color="primary"
-                x-large
-                @click="login"
-                :disabled="isLoading || isError"
-                :loading="isLoading"
-                >Login</v-btn
-              >
+              <v-btn color="primary" x-large @click="login" :disabled="isLoading || isError" :loading="isLoading">Login</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -62,7 +55,7 @@ export default {
   props: {
     source: String
   },
-  data() {
+  data () {
     return {
       email: '',
       password: '',
@@ -72,7 +65,7 @@ export default {
     }
   },
   methods: {
-    login() {
+    login () {
       this.isError = false
 
       if (this.isLoading) {
@@ -102,14 +95,14 @@ export default {
         .catch(error => {
           this.isLoading = false
           this.isError = true
-          this.errorMessage = error
+          this.errorMessage = error.response.data.message
         })
 
       setTimeout(() => {
         this.clearError()
       }, 3500)
     },
-    clearError() {
+    clearError () {
       if (this.isError === false) {
         return
       }
