@@ -82,12 +82,12 @@
                       </v-col>
 
                       <v-col cols="12" sm="12" md="6">
-                        <v-text-field label="C" outlined hide-details required v-model="answer_text[2]" :rules="[v => !!v ]"></v-text-field>
+                        <v-text-field label="B" outlined hide-details required v-model="answer_text[1]" :rules="[v => !!v ]"></v-text-field>
                       </v-col>
                     </v-row>
                     <v-row>
                       <v-col cols="12" sm="12" md="6">
-                        <v-text-field label="B" outlined hide-details required v-model="answer_text[1]" :rules="[v => !!v ]"></v-text-field>
+                        <v-text-field label="C" outlined hide-details required v-model="answer_text[2]" :rules="[v => !!v ]"></v-text-field>
                       </v-col>
 
                       <v-col cols="12" sm="12" md="6">
