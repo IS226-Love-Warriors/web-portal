@@ -7,58 +7,75 @@
             <v-icon class="mr-2">mdi-clipboard-check-multiple</v-icon>Create New Exam
           </v-card-title>
         </v-toolbar>
-        <v-container>
+        <v-container class="pa-6">
           <v-form ref="form" lazy-validation>
-            <v-col cols="12">
-              <v-autocomplete
-                :items="criterias"
-                v-model="criteria"
-                item-text="criteria_name"
-                item-value="criteria_id"
-                label="Criteria*"
-                outlined
-                :rules="[v => !!v || 'This is required']"
-                hide-details
-                :loading="loading"
-              ></v-autocomplete>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="description"
-                label="Exam Description"
-                outlined
-                hide-details
-                :rules="[v => !!v || 'This is required']"
-                required
-                :loading="loading"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-menu
-                v-model="calendar"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="date"
-                    label="Exam Date"
-                    hint="YYYY/MM/DD format"
-                    persistent-hint
-                    v-on="on"
-                    readonly
-                    outlined
-                    :rules="[v => !!v || 'This is required']"
-                    required
-                    :loading="loading"
-                  ></v-text-field>
-                </template>
-                <v-date-picker v-model="date" @input="calendar = false" :min="currentDate"></v-date-picker>
-              </v-menu>
-            </v-col>
+            <v-row>
+              <v-col cols="12">
+                <v-autocomplete
+                  :items="criterias"
+                  v-model="criteria"
+                  item-text="criteria_name"
+                  item-value="criteria_id"
+                  label="Criteria*"
+                  outlined
+                  :rules="[v => !!v || 'This is required']"
+                  hide-details
+                  :loading="loading"
+                ></v-autocomplete>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="description"
+                  label="Exam Description"
+                  outlined
+                  hide-details
+                  :rules="[v => !!v || 'This is required']"
+                  required
+                  :loading="loading"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="6" md="6">
+                <v-select
+                  :items="period"
+                  label="Grading Period"
+                  outlined
+                  required
+                  v-model="grading_period"
+                  :rules="[v => !!v ]"
+                  hide-details
+                ></v-select>
+              </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <v-menu
+                  v-model="calendar"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="date"
+                      label="Exam Date"
+                      hint="YYYY/MM/DD format"
+                      persistent-hint
+                      v-on="on"
+                      readonly
+                      outlined
+                      :rules="[v => !!v || 'This is required']"
+                      required
+                      :loading="loading"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" @input="calendar = false" :min="currentDate"></v-date-picker>
+                </v-menu>
+              </v-col>
+            </v-row>
           </v-form>
         </v-container>
         <v-card-actions>
@@ -82,7 +99,9 @@ export default {
       calendar: false,
       date: '',
       description: '',
-      criteria: ''
+      criteria: '',
+      period: [1, 2, 3, 4],
+      grading_period: ''
     }
   },
   props: ['show', 'id'],
@@ -109,7 +128,8 @@ export default {
         subject_id: this.id,
         exam_date: this.date,
         exam_desc: this.description,
-        criteria_id: this.criteria
+        criteria_id: this.criteria,
+        grading_period: this.grading_period
       }
       axios
         .post('examination/create.php', params)
