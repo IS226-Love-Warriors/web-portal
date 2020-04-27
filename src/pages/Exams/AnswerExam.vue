@@ -162,6 +162,7 @@ export default {
               type: 'success',
               message: res.data.message
             })
+            this.$router.push('/exams/' + this.id + '/view-answer')
             this.isTakeExam = 1
           } else {
             this.$store.commit('loading/show', false)
