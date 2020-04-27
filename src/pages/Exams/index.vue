@@ -40,9 +40,9 @@ export default {
       showModal: false,
       headers: [
         {
-          text: 'Exam ID',
+          text: 'Grading Period',
           align: 'start',
-          value: 'exam_id'
+          value: 'grading_period'
         },
         { text: 'Subject Name', value: 'subject' },
         { text: 'Exam', value: 'exam_desc' },
