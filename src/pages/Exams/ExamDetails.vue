@@ -95,7 +95,7 @@
                       </v-col>
                     </v-row>
                     <v-row>
-                      <v-col cols="12" sm="6" md="4">
+                      <v-col cols="12" sm="6" md="5">
                         <v-select
                           :items="choices"
                           label="Correct Answer"
@@ -106,13 +106,15 @@
                           :rules="[v => !!v ]"
                         ></v-select>
                       </v-col>
-                      <v-col cols="12" sm="6" md="8" class="d-flex justify-end">
-                        <v-btn color="primary" large class="mr-3" @click="addMore">Add More</v-btn>
-                        <v-btn color="success" large @click="save" :disabled="!questionSets.length">Save</v-btn>
+                      <v-col cols="12" sm="6" md="7" class="d-flex justify-end">
+                        <v-btn color="primary" large @click="addMore" :disabled="!disabledAddMore">Add More</v-btn>
                       </v-col>
                     </v-row>
                   </v-form>
                 </v-card>
+                <v-container class="d-flex justify-center mt-3">
+                  <v-btn color="success" large class="mr-3" @click="save" :disabled="!questionSets.length">Save Exam</v-btn>
+                </v-container>
               </v-container>
             </v-col>
 
@@ -173,6 +175,9 @@ export default {
     loading () {
       return this.$store.state.loading.show
     },
+    disabledAddMore () {
+      return this.question_text.length > 0 && !!this.correctAnswer && this.answer_text.length == 4
+    }
   },
   methods: {
     back () {
@@ -221,6 +226,9 @@ export default {
         message: 'Question: ' + this.question_text + ' was created'
       })
       this.$refs.form.reset()
+      this.question_text = ''
+      this.answer_text = []
+      this.correctAnswer = 0
     },
     save () {
       this.$store.commit('loading/show', true)
