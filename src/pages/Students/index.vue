@@ -85,7 +85,7 @@ export default {
       this.$store.commit('students/setShowModal', true)
     },
     viewUser (user) {
-      this.$router.push('/students/' + user.id)
+      this.$router.push('/students/' + user.id + '/grades')
     }
   },
   mounted () {

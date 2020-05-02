@@ -16,7 +16,6 @@
         </v-card-title>
 
         <v-data-table :headers="headers" :items="exams" :search="search">
-          <template #item.grade_level="{ item }">{{ item.grade_year }} ({{ item.level }})</template>
           <template v-slot:item.actions="{ item }">
             <v-btn rounded small outlined color="info" @click="viewSubject(item)">
               <v-icon small class="mr-2">mdi-magnify</v-icon>View

@@ -4,7 +4,9 @@ export default {
   state: {
     list: [],
     showModal: false,
-    profile: {}
+    profile: {},
+    grades: [],
+    criteria: []
   },
   mutations: {
     setList(state, value) {
@@ -15,6 +17,12 @@ export default {
     },
     setProfile(state, value) {
       state.profile = value
+    },
+    setGrades(state, value) {
+      state.grades = value
+    },
+    setCriteria(state, value) {
+      state.criteria = value
     }
   }
 }

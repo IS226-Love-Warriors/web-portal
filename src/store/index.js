@@ -12,6 +12,8 @@ import teachers from './teachers'
 import subjects from './subjects'
 import exams from './exams'
 
+import grades from './grades'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -23,6 +25,7 @@ export default new Vuex.Store({
     students,
     teachers,
     subjects,
-    exams
+    exams,
+    grades
   }
 })
