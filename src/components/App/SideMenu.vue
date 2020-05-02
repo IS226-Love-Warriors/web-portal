@@ -30,7 +30,7 @@ export default {
       pages: [
         { link: '/', icon: 'mdi-view-dashboard', name: 'Dashboard', role: [1, 2, 3] },
         { link: '/admins', icon: 'mdi-account-cog', name: 'Admins', role: [1] },
-        { link: '/teachers', icon: 'mdi-clipboard-account', name: 'Teachers', role: [1, 2, 3] },
+        { link: '/teachers', icon: 'mdi-clipboard-account', name: 'Teachers', role: [1] },
         { link: '/students', icon: 'mdi-card-account-details', name: 'Students', role: [1, 2] },
         { link: '/subjects', icon: 'mdi-bookshelf', name: 'Subjects', role: [1, 2, 3] },
         { link: '/exams', icon: 'mdi-clipboard-check-multiple', name: 'Exams', role: [1, 2, 3] },

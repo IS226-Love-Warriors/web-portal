@@ -29,7 +29,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="editModal" max-width="400px">
+    <!-- <v-dialog v-model="editModal" max-width="400px">
       <v-card>
         <v-card-title>
           <span class="headline">{{ editCriteria.name }}</span>
@@ -47,24 +47,17 @@
           <v-btn color="blue darken-1" text @click="save" :loading="saving" :disabled="saving">Save</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog>-->
   </div>
 </template>
 
 <script>
-import axios from '@/axios'
 
 export default {
   name: 'modal-grade',
   props: ['showModal', 'loading'],
   data: () => ({
     search: '',
-    editModal: '',
-    editCriteria: {
-      name: '',
-      score: ''
-    },
-    saving: false,
     headers: [
       {
         text: 'Name',
@@ -73,8 +66,7 @@ export default {
       },
       { text: 'Score', value: 'score' },
       { text: 'Percentage', value: 'percentage' },
-      { text: 'Score Equivvalent', value: 'score_equivalent' },
-      { text: 'Actions', value: 'actions', sortable: false }
+      { text: 'Score Equivvalent', value: 'score_equivalent' }
     ]
   }),
   computed: {
@@ -89,44 +81,6 @@ export default {
     closeModal () {
       this.$parent.closeModal()
     },
-    edit (item) {
-      this.editModal = true
-      this.editCriteria.id = item.criteria_id
-      this.editCriteria.name = item.criteria_name
-      this.editCriteria.score = item.score
-    },
-    closeEditModal () {
-      this.editModal = false
-    },
-    save () {
-      this.saving = true
-      let params = {
-        criteria_id: this.editCriteria.id,
-        score: this.editCriteria.score
-      }
-      axios
-        .post('grades/update-grade.php', params)
-        .then(res => {
-          this.saving = false
-          this.closeEditModal()
-          this.$parent.viewBreakdown({ id: this.details.subject_id })
-          this.$store.commit('snackbar/show', true)
-          this.$store.commit('snackbar/set', {
-            type: 'success',
-            message: res.data.message
-          })
-
-        })
-        .catch(err => {
-          console.log(err)
-          this.$store.commit('snackbar/show', true)
-          this.$store.commit('snackbar/set', {
-            type: 'error',
-            message: 'Something went wrong'
-          })
-          this.saving = false
-        })
-    }
   }
 }
 </script>

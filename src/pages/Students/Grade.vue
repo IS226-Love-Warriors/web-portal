@@ -7,6 +7,7 @@
             <thead>
               <tr>
                 <th class="text-left">Subject Name</th>
+                <th class="text-left">Assigned Teacher</th>
                 <th class="text-center">1</th>
                 <th class="text-center">2</th>
                 <th class="text-center">3</th>
@@ -18,6 +19,7 @@
             <tbody>
               <tr v-for="item in grades" :key="item.id" class="stylehover">
                 <td>{{ item.subject }}</td>
+                <td>{{ item.teacher }}</td>
                 <td class="text-center font-weight-bold">{{ item.first }}</td>
                 <td class="text-center font-weight-bold">{{ item.second }}</td>
                 <td class="text-center font-weight-bold">{{ item.third }}</td>
@@ -134,6 +136,7 @@ export default {
           let item = {
             id: grade.subject_id,
             subject: grade.subject_name,
+            teacher: grade.teacher,
             ...period
           }
           displayGrades.push(item)
