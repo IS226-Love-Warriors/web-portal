@@ -3,7 +3,10 @@
     <v-skeleton-loader :loading="loading" type="card">
       <v-card v-if="isTakeExam">
         <v-card-title class="justify-center">{{ examDetails ? examDetails.exam_text : '' }}</v-card-title>
-        <v-card-text class="text-center" v-if="isEnabled()">This exam will be available on: {{examDetails.exam_date}}</v-card-text>
+        <v-card-text class="text-center" v-if="isEnabled()">
+          <span v-if="checkDate()">This exam will be available on: {{examDetails.exam_date}}</span>
+          <span v-else>This exam was posted on: {{examDetails.exam_date}}. You have not answered this exam.</span>
+        </v-card-text>
         <v-card-text class="text-center reminder" v-else>
           <h2>Some reminders before taking the exam:</h2>
           <p class="mt-6">1. Don't refresh the page</p>
@@ -121,6 +124,11 @@ export default {
         return this.currentDate != this.examDetails.exam_date
       }
       return false
+    },
+    checkDate () {
+      let examDate = new Date(this.examDetails.exam_date).toISOString().substr(0, 10)
+      console.log(examDate > this.currentDate, examDate, this.currentDate)
+      return examDate > this.currentDate
     },
     back () {
       this.$router.push('/exams')
