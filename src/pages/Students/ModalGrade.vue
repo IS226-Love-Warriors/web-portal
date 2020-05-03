@@ -73,7 +73,7 @@ export default {
       },
       { text: 'Score', value: 'score' },
       { text: 'Percentage', value: 'percentage' },
-      { text: 'Score Equivvalent', value: 'score_equivalent' },
+      { text: 'Score Equivalent', value: 'score_equivalent' },
       { text: 'Actions', value: 'actions', sortable: false }
     ]
   }),
