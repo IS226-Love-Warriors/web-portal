@@ -18,9 +18,9 @@
             <v-btn class="mr-2" outlined rounded small color="primary" @click="routerPush('grades')" :disabled="loading">
               <v-icon left small>mdi-format-list-numbered</v-icon>Grades
             </v-btn>
-            <v-btn class="mr-2" outlined rounded small color="primary" @click="routerPush('subjects')" :disabled="loading">
+            <!-- <v-btn class="mr-2" outlined rounded small color="primary" @click="routerPush('subjects')" :disabled="loading">
               <v-icon left small>mdi-bookshelf</v-icon>Subjects
-            </v-btn>
+            </v-btn>-->
           </div>
         </div>
       </v-card>
