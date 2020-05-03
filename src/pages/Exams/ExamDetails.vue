@@ -5,7 +5,7 @@
         <v-btn large color="grey" text class="pa-0" @click="back">
           <v-icon class="mr-2">mdi-keyboard-backspace</v-icon>Back
         </v-btn>
-        <div class="text-center">
+        <!-- <div class="text-center">
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <v-btn fab dark small color="primary" v-on="on">
@@ -26,7 +26,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-        </div>
+        </div>-->
       </v-col>
       <v-card v-if="!showQuestionForm">
         <v-card-title>{{ examDetails ? examDetails.exam_text : '' }}</v-card-title>
