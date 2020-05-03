@@ -98,9 +98,13 @@
             </div>
           </v-form>
         </v-container>
-        <v-card-actions v-show="subject">
+        <v-card-actions v-if="subject">
           <v-spacer></v-spacer>
           <v-btn large color="primary" @click="saveForm" :loading="loading" :disabled="loading">Save</v-btn>
+          <v-btn large color="grey" text @click="closeModal" :loading="loading">Cancel</v-btn>
+        </v-card-actions>
+        <v-card-actions v-else>
+          <v-spacer></v-spacer>
           <v-btn large color="grey" text @click="closeModal" :loading="loading">Cancel</v-btn>
         </v-card-actions>
       </v-card>
