@@ -34,7 +34,7 @@ export default {
         { link: '/students', icon: 'mdi-card-account-details', name: 'Students', role: [1, 2] },
         { link: '/subjects', icon: 'mdi-bookshelf', name: 'Subjects', role: [1, 2, 3] },
         { link: '/exams', icon: 'mdi-clipboard-check-multiple', name: 'Exams', role: [1, 2, 3] },
-        { link: '/grades', icon: 'mdi-format-list-numbered', name: 'Grades', role: [1, 2, 3] },
+        { link: '/grades', icon: 'mdi-format-list-numbered', name: 'Grades', role: [3] },
         { link: '/profile', icon: 'mdi-account', name: 'Profile', role: [1, 2, 3] }
       ]
     }
