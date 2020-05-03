@@ -65,17 +65,7 @@ export default {
       score: ''
     },
     saving: false,
-    headers: [
-      {
-        text: 'Name',
-        align: 'start',
-        value: 'criteria_name'
-      },
-      { text: 'Score', value: 'score' },
-      { text: 'Percentage', value: 'percentage' },
-      { text: 'Score Equivalent', value: 'score_equivalent' },
-      { text: 'Actions', value: 'actions', sortable: false }
-    ]
+    headers: []
   }),
   computed: {
     criteria () {
@@ -83,6 +73,13 @@ export default {
     },
     details () {
       return this.$store.state.students.criteria
+    },
+    accountType () {
+      let acct = localStorage.getItem('account')
+      if (acct == '2') {
+        return true
+      }
+      return false
     }
   },
   methods: {
@@ -126,6 +123,28 @@ export default {
           })
           this.saving = false
         })
+    }
+  },
+  mounted () {
+    if (this.accountType) {
+      this.headers = [{
+        text: 'Name',
+        align: 'start',
+        value: 'criteria_name'
+      },
+      { text: 'Score', value: 'score' },
+      { text: 'Percentage', value: 'percentage' },
+      { text: 'Score Equivalent', value: 'score_equivalent' },
+      { text: 'Actions', value: 'actions', sortable: false }]
+    } else {
+      this.headers = [{
+        text: 'Name',
+        align: 'start',
+        value: 'criteria_name'
+      },
+      { text: 'Score', value: 'score' },
+      { text: 'Percentage', value: 'percentage' },
+      { text: 'Score Equivalent', value: 'score_equivalent' }]
     }
   }
 }
