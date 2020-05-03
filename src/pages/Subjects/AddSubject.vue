@@ -267,6 +267,7 @@ export default {
             id: x.id
           }))
           this.$store.commit('teachers/setList', teacher)
+          this.$store.commit('loading/show', false)
         })
         .catch(err => {
           this.$store.commit('snackbar/show', true)
@@ -274,6 +275,7 @@ export default {
             type: 'error',
             message: err.message
           })
+          this.$store.commit('loading/show', false)
         })
     }
   },
