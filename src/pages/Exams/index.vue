@@ -79,6 +79,27 @@ export default {
           this.$store.commit('loading/show', false)
         })
     },
+    initForStudents () {
+      this.$store.commit('loading/show', true)
+      let params = {
+        student_id: localStorage.getItem('id')
+      }
+      axios
+        .post('examination/read-exams-per-student.php', params)
+        .then(res => {
+          let record = res.data.data.exams
+          this.$store.commit('exams/setList', record)
+          this.$store.commit('loading/show', false)
+        })
+        .catch(err => {
+          this.$store.commit('snackbar/show', true)
+          this.$store.commit('snackbar/set', {
+            type: 'error',
+            message: err.message
+          })
+          this.$store.commit('loading/show', false)
+        })
+    },
     openModal () {
       this.showModal = true
     },
@@ -94,7 +115,11 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    if (localStorage.getItem('account') == 3) {
+      this.initForStudents()
+    } else {
+      this.init()
+    }
   }
 }
 </script>
