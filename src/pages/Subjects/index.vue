@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-skeleton-loader :loading="loading" type="card">
-      <v-row>
+      <v-row v-show="accountType">
         <v-col align="end" class="pt-1">
           <v-btn color="primary" @click="openModal">
             <v-icon class="mr-2">mdi-bookshelf</v-icon>Add Subject
@@ -62,12 +62,40 @@ export default {
     loading () {
       return this.$store.state.loading.show
     },
+    accountType () {
+      let acct = localStorage.getItem('account')
+      if (acct == '1') {
+        return true
+      }
+      return false
+    }
   },
   methods: {
     init () {
       this.$store.commit('loading/show', true)
       axios
         .get('subject/read-all.php')
+        .then(res => {
+          let record = res.data.data.records
+          this.$store.commit('subjects/setList', record)
+          this.$store.commit('loading/show', false)
+        })
+        .catch(err => {
+          this.$store.commit('snackbar/show', true)
+          this.$store.commit('snackbar/set', {
+            type: 'error',
+            message: err.message
+          })
+          this.$store.commit('loading/show', false)
+        })
+    },
+    initForStudents () {
+      this.$store.commit('loading/show', true)
+      let params = {
+        grade_year: JSON.parse(localStorage.getItem('user')).grade_level
+      }
+      axios
+        .post('subject/read-subject-level.php', params)
         .then(res => {
           let record = res.data.data.records
           this.$store.commit('subjects/setList', record)
@@ -90,7 +118,11 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    if (localStorage.getItem('account') == '3') {
+      this.initForStudents()
+    } else {
+      this.init()
+    }
   }
 }
 </script>
