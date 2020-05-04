@@ -110,6 +110,27 @@ export default {
           this.$store.commit('loading/show', false)
         })
     },
+    initForTeachers () {
+      this.$store.commit('loading/show', true)
+      let params = {
+        teacher_id: localStorage.getItem('id')
+      }
+      axios
+        .post('subject/read-teacher-subject.php', params)
+        .then(res => {
+          let record = res.data.data.records
+          this.$store.commit('subjects/setList', record)
+          this.$store.commit('loading/show', false)
+        })
+        .catch(err => {
+          this.$store.commit('snackbar/show', true)
+          this.$store.commit('snackbar/set', {
+            type: 'error',
+            message: err.message
+          })
+          this.$store.commit('loading/show', false)
+        })
+    },
     openModal () {
       this.$store.commit('subjects/setShowModal', true)
     },
@@ -118,11 +139,18 @@ export default {
     }
   },
   mounted () {
-    if (localStorage.getItem('account') == '3') {
-      this.initForStudents()
-    } else {
-      this.init()
+    switch (localStorage.getItem('account')) {
+      case '1':
+        this.init()
+        break
+      case '2':
+        this.initForTeachers()
+        break
+      case '3':
+        this.initForStudents()
+        break
     }
+
   }
 }
 </script>

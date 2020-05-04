@@ -280,7 +280,9 @@ export default {
     }
   },
   mounted () {
-    this.getAllTeachers()
+    if (localStorage.getItem('account') == '1') {
+      this.getAllTeachers()
+    }
   }
 }
 </script>
