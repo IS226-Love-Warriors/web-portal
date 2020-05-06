@@ -194,6 +194,7 @@ export default {
               message: res.data.message
             })
             this.$parent.init()
+            this.$router.push('/exams/' + res.data.data.exam_id)
           } else {
             this.$store.commit('loading/show', false)
             this.$store.commit('snackbar/show', true)
