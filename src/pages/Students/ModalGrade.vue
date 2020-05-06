@@ -133,6 +133,7 @@ export default {
         value: 'criteria_name'
       },
       { text: 'Score', value: 'score' },
+      { text: 'No. of Items', value: 'no_of_items' },
       { text: 'Percentage', value: 'percentage' },
       { text: 'Score Equivalent', value: 'score_equivalent' },
       { text: 'Actions', value: 'actions', sortable: false }]
@@ -143,6 +144,7 @@ export default {
         value: 'criteria_name'
       },
       { text: 'Score', value: 'score' },
+      { text: 'No. of Items', value: 'no_of_items' },
       { text: 'Percentage', value: 'percentage' },
       { text: 'Score Equivalent', value: 'score_equivalent' }]
     }
