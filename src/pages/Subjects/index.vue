@@ -76,9 +76,18 @@ export default {
       axios
         .get('subject/read-all.php')
         .then(res => {
-          let record = res.data.data.records
-          this.$store.commit('subjects/setList', record)
-          this.$store.commit('loading/show', false)
+          if (res.data.data) {
+            let record = res.data.data.records
+            this.$store.commit('subjects/setList', record)
+            this.$store.commit('loading/show', false)
+          } else {
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.data.message
+            })
+            this.$store.commit('loading/show', false)
+          }
         })
         .catch(err => {
           this.$store.commit('snackbar/show', true)
@@ -97,9 +106,18 @@ export default {
       axios
         .post('subject/read-subject-level.php', params)
         .then(res => {
-          let record = res.data.data.records
-          this.$store.commit('subjects/setList', record)
-          this.$store.commit('loading/show', false)
+          if (res.data.data) {
+            let record = res.data.data.records
+            this.$store.commit('subjects/setList', record)
+            this.$store.commit('loading/show', false)
+          } else {
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.data.message
+            })
+            this.$store.commit('loading/show', false)
+          }
         })
         .catch(err => {
           this.$store.commit('snackbar/show', true)
@@ -118,11 +136,21 @@ export default {
       axios
         .post('subject/read-teacher-subject.php', params)
         .then(res => {
-          let record = res.data.data.records
-          this.$store.commit('subjects/setList', record)
-          this.$store.commit('loading/show', false)
+          if (res.data.data) {
+            let record = res.data.data.records
+            this.$store.commit('subjects/setList', record)
+            this.$store.commit('loading/show', false)
+          } else {
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.data.message
+            })
+            this.$store.commit('loading/show', false)
+          }
         })
         .catch(err => {
+          console.log(err)
           this.$store.commit('snackbar/show', true)
           this.$store.commit('snackbar/set', {
             type: 'error',
