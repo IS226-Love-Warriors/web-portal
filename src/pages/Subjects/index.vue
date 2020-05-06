@@ -37,18 +37,7 @@ export default {
   data () {
     return {
       search: '',
-      headers: [
-        {
-          text: 'Subject ID',
-          align: 'start',
-          value: 'subject_id'
-        },
-        { text: 'Subject Name', value: 'subject_name' },
-        { text: 'Grade Level', value: 'grade_level' },
-        { text: 'Academic Year', value: 'acad_year' },
-        { text: 'Assigned Teacher', value: 'assigned_teacher.name' },
-        { text: 'Actions', value: 'actions', sortable: false }
-      ]
+      headers: []
     }
   },
   components: { AddSubject },
@@ -72,6 +61,7 @@ export default {
   },
   methods: {
     init () {
+      this.initHeaders()
       this.$store.commit('loading/show', true)
       axios
         .get('subject/read-all.php')
@@ -99,6 +89,7 @@ export default {
         })
     },
     initForStudents () {
+      this.initHeaders()
       this.$store.commit('loading/show', true)
       let params = {
         grade_year: JSON.parse(localStorage.getItem('user')).grade_level
@@ -129,6 +120,7 @@ export default {
         })
     },
     initForTeachers () {
+      this.initHeadersForTeachers()
       this.$store.commit('loading/show', true)
       let params = {
         teacher_id: localStorage.getItem('id')
@@ -158,6 +150,33 @@ export default {
           })
           this.$store.commit('loading/show', false)
         })
+    },
+    initHeaders () {
+      this.headers = [
+        {
+          text: 'Subject ID',
+          align: 'start',
+          value: 'subject_id'
+        },
+        { text: 'Subject Name', value: 'subject_name' },
+        { text: 'Grade Level', value: 'grade_level' },
+        { text: 'Academic Year', value: 'acad_year' },
+        { text: 'Assigned Teacher', value: 'assigned_teacher.name' },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ]
+    },
+    initHeadersForTeachers () {
+      this.headers = [
+        {
+          text: 'Subject ID',
+          align: 'start',
+          value: 'subject_id'
+        },
+        { text: 'Subject Name', value: 'subject_name' },
+        { text: 'Grade Level', value: 'grade_level' },
+        { text: 'Academic Year', value: 'acad_year' },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ]
     },
     openModal () {
       this.$store.commit('subjects/setShowModal', true)

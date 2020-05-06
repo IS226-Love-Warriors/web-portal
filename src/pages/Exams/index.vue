@@ -37,18 +37,7 @@ export default {
     return {
       search: '',
       showModal: false,
-      headers: [
-        {
-          text: 'Grading Period',
-          align: 'start',
-          value: 'grading_period'
-        },
-        { text: 'Subject Name', value: 'subject' },
-        { text: 'Exam', value: 'exam_desc' },
-        { text: 'Exam Date', value: 'exam_date' },
-        { text: 'Assigned Teacher', value: 'teacher_id.name' },
-        { text: 'Actions', value: 'actions', sortable: false }
-      ]
+      headers: []
     }
   },
   components: { AddExam },
@@ -62,6 +51,7 @@ export default {
   },
   methods: {
     init () {
+      this.initHeaders()
       this.$store.commit('loading/show', true)
       axios
         .get('examination/read-all.php')
@@ -80,6 +70,7 @@ export default {
         })
     },
     initForStudents () {
+      this.initHeaders()
       this.$store.commit('loading/show', true)
       let params = {
         student_id: localStorage.getItem('id')
@@ -101,6 +92,7 @@ export default {
         })
     },
     initForTeachers () {
+      this.initHeadersForTeachers()
       this.$store.commit('loading/show', true)
       let params = {
         teacher_id: localStorage.getItem('id')
@@ -108,7 +100,7 @@ export default {
       axios
         .post('examination/read-exam-per-teacher.php', params)
         .then(res => {
-          let record = res.data.data.exams
+          let record = res.data.data.records
           this.$store.commit('exams/setList', record)
           this.$store.commit('loading/show', false)
         })
@@ -120,6 +112,33 @@ export default {
           })
           this.$store.commit('loading/show', false)
         })
+    },
+    initHeaders () {
+      this.headers = [
+        {
+          text: 'Grading Period',
+          align: 'start',
+          value: 'grading_period'
+        },
+        { text: 'Subject Name', value: 'subject' },
+        { text: 'Exam', value: 'exam_desc' },
+        { text: 'Exam Date', value: 'exam_date' },
+        { text: 'Assigned Teacher', value: 'teacher_id.name' },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ]
+    },
+    initHeadersForTeachers () {
+      this.headers = [
+        {
+          text: 'Grading Period',
+          align: 'start',
+          value: 'grading_period'
+        },
+        { text: 'Subject Name', value: 'subject_name' },
+        { text: 'Exam', value: 'exam_desc' },
+        { text: 'Exam Date', value: 'exam_date' },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ]
     },
     openModal () {
       this.showModal = true
