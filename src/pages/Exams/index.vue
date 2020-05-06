@@ -56,9 +56,18 @@ export default {
       axios
         .get('examination/read-all.php')
         .then(res => {
-          let record = res.data.data.exams
-          this.$store.commit('exams/setList', record)
-          this.$store.commit('loading/show', false)
+          if (res.data.data) {
+            let record = res.data.data.exams
+            this.$store.commit('exams/setList', record)
+            this.$store.commit('loading/show', false)
+          } else {
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.data.message
+            })
+            this.$store.commit('loading/show', false)
+          }
         })
         .catch(err => {
           this.$store.commit('snackbar/show', true)
@@ -78,9 +87,18 @@ export default {
       axios
         .post('examination/read-exams-per-student.php', params)
         .then(res => {
-          let record = res.data.data.exams
-          this.$store.commit('exams/setList', record)
-          this.$store.commit('loading/show', false)
+          if (res.data.data) {
+            let record = res.data.data.exams
+            this.$store.commit('exams/setList', record)
+            this.$store.commit('loading/show', false)
+          } else {
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.data.message
+            })
+            this.$store.commit('loading/show', false)
+          }
         })
         .catch(err => {
           this.$store.commit('snackbar/show', true)
@@ -100,9 +118,18 @@ export default {
       axios
         .post('examination/read-exam-per-teacher.php', params)
         .then(res => {
-          let record = res.data.data.records
-          this.$store.commit('exams/setList', record)
-          this.$store.commit('loading/show', false)
+          if (res.data.data) {
+            let record = res.data.data.records
+            this.$store.commit('exams/setList', record)
+            this.$store.commit('loading/show', false)
+          } else {
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.data.message
+            })
+            this.$store.commit('loading/show', false)
+          }
         })
         .catch(err => {
           this.$store.commit('snackbar/show', true)
