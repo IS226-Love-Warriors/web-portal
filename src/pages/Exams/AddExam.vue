@@ -226,10 +226,48 @@ export default {
             message: err.message
           })
         })
+    },
+    getSubjByTeacher () {
+      this.$store.commit('loading/show', true)
+      let params = {
+        teacher_id: localStorage.getItem('id')
+      }
+      axios
+        .post('subject/read-teacher-subject.php', params)
+        .then(res => {
+          if (res.data.data) {
+            let record = res.data.data.records
+            this.$store.commit('subjects/setList', record)
+            this.$store.commit('loading/show', false)
+          } else {
+            this.$store.commit('snackbar/show', true)
+            this.$store.commit('snackbar/set', {
+              type: 'error',
+              message: res.data.message
+            })
+            this.$store.commit('loading/show', false)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          this.$store.commit('snackbar/show', true)
+          this.$store.commit('snackbar/set', {
+            type: 'error',
+            message: err.message
+          })
+          this.$store.commit('loading/show', false)
+        })
     }
   },
   mounted () {
-    this.getAllSubjects()
+    switch (localStorage.getItem('account')) {
+      case '1':
+        this.getAllSubjects()
+        break
+      case '2':
+        this.getSubjByTeacher()
+        break
+    }
   }
 }
 </script>
