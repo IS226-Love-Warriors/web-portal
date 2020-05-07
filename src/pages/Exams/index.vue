@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-skeleton-loader :loading="loading" type="card">
-      <v-row>
+      <v-row v-show="accountType">
         <v-col align="end" class="pt-1">
           <v-btn color="primary" @click="openModal">
             <v-icon class="mr-2">mdi-clipboard-check-multiple</v-icon>Add Exam
@@ -48,6 +48,13 @@ export default {
     loading () {
       return this.$store.state.loading.show
     },
+    accountType () {
+      let acct = localStorage.getItem('account')
+      if (acct == '2') {
+        return true
+      }
+      return false
+    }
   },
   methods: {
     init () {
